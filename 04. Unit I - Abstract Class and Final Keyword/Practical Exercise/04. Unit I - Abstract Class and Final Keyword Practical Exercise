@@ -1,0 +1,593 @@
+//Create an abstract class Complex.
+import java.util.*;
+
+abstract class Complex {
+     abstract float Real(float real1, float real2);
+
+     abstract float Imaginary(float imag1, float imag2);
+
+     abstract float Real1(float real1, float real2, float imag1, float imag2);
+
+     abstract float Imaginary1(float real1, float real2, float imag1, float imag2);
+}
+
+class Addition extends Complex {
+     float Real(float real1, float real2) {
+          return real1 + real2;
+     }
+
+     float Imaginary(float imag1, float imag2) {
+          return imag1 + imag2;
+     }
+
+     float Imaginary1(float real1, float real2, float imag1, float imag2) {
+          return 0;
+     }
+
+     float Real1(float real1, float real2, float imag1, float imag2) {
+          return 0;
+     }
+}
+
+class Subtraction extends Complex {
+     float Real(float real1, float real2) {
+          return real1 - real2;
+     }
+
+     float Imaginary(float imag1, float imag2) {
+          return imag1 - imag2;
+     }
+
+     float Imaginary1(float real1, float real2, float imag1, float imag2) {
+          return 0;
+     }
+
+     float Real1(float real1, float real2, float imag1, float imag2) {
+          return 0;
+     }
+}
+
+class Multiplication extends Complex {
+     float Real1(float real1, float real2, float imag1, float imag2) {
+          return ((real1 * real2) - (imag1 * imag2));
+     }
+
+     float Imaginary1(float real1, float real2, float imag1, float imag2) {
+          return ((real1 * imag2) + (imag1 * real2));
+     }
+
+     float Imaginary(float imag1, float imag2) {
+          return 0;
+     }
+
+     float Real(float real1, float real2) {
+          return 0;
+     }
+}
+
+class Division extends Complex {
+     float Real1(float real1, float real2, float imag1, float imag2) {
+          return (((real1 * real2) + (imag1 * imag2)) / ((real2 * real2) + (imag2 * imag2)));
+     }
+
+     float Imaginary1(float real1, float real2, float imag1, float imag2) {
+          return (((imag1 * real2) - (real1 * imag2)) / ((real2 * real2) + (imag2 * imag2)));
+     }
+
+     float Imaginary(float imag1, float imag2) {
+          return 0;
+     }
+
+     float Real(float real1, float real2) {
+          return 0;
+     }
+}
+
+class Main {
+     public static void main(String args[]) {
+          Scanner scan = new Scanner(System.in);
+          float real1 = scan.nextFloat();
+          float imag1 = scan.nextFloat();
+          float real2 = scan.nextFloat();
+          float imag2 = scan.nextFloat();
+          Complex b;
+          b = new Addition();
+          System.out.printf("Addition:\n\t%.4f", b.Real(real1, real2));
+          if (b.Imaginary(imag1, imag2) >= 0) {
+               System.out.print(" +");
+          } else {
+               System.out.print(" ");
+          }
+          System.out.printf("%.4f i", b.Imaginary(imag1, imag2));
+          b = new Subtraction();
+          System.out.printf("\nSubtraction:\n\t%.4f", b.Real(real1, real2));
+          if (b.Imaginary(imag1, imag2) >= 0) {
+               System.out.print(" +");
+          } else {
+               System.out.print(" ");
+          }
+          System.out.printf("%.4f i", b.Imaginary(imag1, imag2));
+          b = new Multiplication();
+          System.out.printf("\nMultiplication:\n\t%.4f", b.Real1(real1, real2, imag1, imag2));
+          if (b.Imaginary1(real1, real2, imag1, imag2) >= 0) {
+               System.out.print(" +");
+          } else {
+               System.out.print(" ");
+          }
+          System.out.printf("%.4f i", b.Imaginary1(real1, real2, imag1, imag2));
+          b = new Division();
+          System.out.printf("\nDivision:\n\t%.4f", b.Real1(real1, real2, imag1, imag2));
+          if (b.Imaginary1(real1, real2, imag1, imag2) >= 0) {
+               System.out.print(" +");
+          } else {
+               System.out.print(" ");
+          }
+          System.out.printf("%.4f i", b.Imaginary1(real1, real2, imag1, imag2));
+
+          scan.close();
+     }
+
+}
+//Item details-Abstract class.
+import java.util.*;
+
+abstract class ItemType {
+     public abstract double calculateAmount();
+}
+
+class wooden extends ItemType {
+     private int noOfItems;
+     private double cost;
+
+     public int getNoOfItems() {
+          return noOfItems;
+     }
+
+     public void setNoOfItems(int noOfItems) {
+          this.noOfItems = noOfItems;
+     }
+
+     public double getCost() {
+          return cost;
+     }
+
+     public void setCost(double cost) {
+          this.cost = cost;
+     }
+
+     public wooden() {
+          this.noOfItems = 0;
+          this.cost = (double) 0;
+     }
+
+     public wooden(int noOfItems, double cost) {
+          this.noOfItems = noOfItems;
+          this.cost = cost;
+     }
+
+     public double calculateAmount() {
+          return noOfItems * cost;
+     }
+}
+
+class electronics extends ItemType {
+     private String type;
+     private double amount;
+
+     public String getType() {
+          return type;
+     }
+
+     public void setType(String type) {
+          this.type = type;
+     }
+
+     public double getAmount() {
+          return amount;
+     }
+
+     public void setAmount(double amount) {
+          this.amount = amount;
+     }
+
+     public electronics() {
+          this.type = null;
+          this.amount = (double) 0;
+     }
+
+     public electronics(String type, double amount) {
+          this.type = type;
+          this.amount = amount;
+     }
+
+     public double calculateAmount() {
+          double result = 0;
+          if (type.contains("Academics")) {
+               result = amount - (0.05 * amount);
+          } else if (type.contains("Commercial")) {
+               result = amount;
+          }
+          return result;
+     }
+}
+
+class code2 {
+     public static void main(String[] args) {
+          int choice;
+          Scanner scan = new Scanner(System.in);
+          choice = Integer.parseInt(scan.nextLine());
+          wooden w = new wooden();
+          electronics e = new electronics();
+          if (choice == 1) {
+               w.setNoOfItems(Integer.parseInt(scan.nextLine()));
+               w.setCost(Double.parseDouble(scan.nextLine()));
+               double res = w.calculateAmount();
+               System.out.println(res);
+          }
+          if (choice == 2) {
+               e.setType(scan.nextLine());
+               e.setAmount(Double.parseDouble(scan.nextLine()));
+               double orgAmount = e.calculateAmount();
+               System.out.println(orgAmount);
+          }
+
+          scan.close();
+     }
+}
+// Calculate the perimeter of five different geometric shapes.
+import java.util.*;
+import java.lang.Math;
+
+abstract class maths {
+     abstract public void rectanglePerimeter();
+
+     abstract public void squarePerimeter();
+
+     abstract public void trianglePerimeter();
+
+     abstract public void trapezoidPerimeter();
+
+     abstract public void circlePerimeter();
+}
+
+class perimeter extends maths {
+     public int length;
+     public int breadth;
+     public int side;
+     public int t1;
+     public int t2;
+     public int t3;
+     public int tr1;
+     public int tr2;
+     public int tr3;
+     public int tr4;
+     public int radius;
+     public int[] peri = new int[5];
+
+     public void rectanglePerimeter() {
+          this.peri[0] = 2 * (length + breadth);
+          System.out.println(this.peri[0]);
+     }
+
+     public void squarePerimeter() {
+          this.peri[1] = 4 * side;
+          System.out.println(this.peri[1]);
+     }
+
+     public void trianglePerimeter() {
+          this.peri[2] = t1 + t2 + t3;
+          System.out.println(this.peri[2]);
+     }
+
+     public void trapezoidPerimeter() {
+          this.peri[3] = tr1 + tr2 + tr3 + tr4;
+          System.out.println(this.peri[3]);
+     }
+
+     public void circlePerimeter() {
+          this.peri[4] = (int) Math.PI * 2 * radius;
+          System.out.println(this.peri[4]);
+     }
+
+     public void calculateSum() {
+          int sum = 0, i;
+          for (i = 0; i < 5; i++) {
+               sum += this.peri[i];
+          }
+          System.out.println(sum);
+     }
+
+     public void sortPerimeter() {
+          Arrays.sort(this.peri);
+          for (int i = 0; i < 5; i++) {
+               System.out.print(this.peri[i] + " ");
+          }
+     }
+}
+
+class Main {
+     public static void main(String[] args)
+     {
+          perimeter p = new perimeter();
+          Scanner scan = new Scanner(System.in);
+
+          p.length = scan.nextInt();
+          p.breadth = scan.nextInt();
+          p.rectanglePerimeter();
+
+          p.side = scan.nextInt();
+          p.squarePerimeter();
+
+          p.t1 = scan.nextInt();
+          p.t2 = scan.nextInt();
+          p.t3 = scan.nextInt();
+          p.trianglePerimeter();
+
+          p.tr1 = scan.nextInt();
+          p.tr2 = scan.nextInt();
+          p.tr3 = scan.nextInt();
+          p.tr4 = scan.nextInt();
+          p.trapezoidPerimeter();
+
+          p.radius = scan.nextInt();
+          p.circlePerimeter();
+
+          p.calculateSum();
+          p.sortPerimeter();
+
+          scan.close();
+     }
+}
+//Create an abstract class accounts.
+import java.util.*;
+
+abstract class Accounts {
+     public int balance;
+     public int accno;
+     public String name;
+     public String address;
+
+     abstract public void withdrawl(int amount);
+
+     abstract public void deposit(int amount);
+
+     public Accounts(int balance, int accno, String name, String address) {
+          this.balance = balance;
+          this.accno = accno;
+          this.name = name;
+          this.address = address;
+     }
+
+     public void display() {
+          System.out.print(this.accno + " ");
+          System.out.print(this.name + " ");
+          System.out.print(this.balance + " ");
+          System.out.print(this.address);
+     }
+}
+
+class SavingsAccount extends Accounts {
+     int roi;
+
+     public SavingsAccount(int balance, int accno, String name, String address) {
+          super(balance, accno, name, address);
+     }
+
+     public void setRoi(int r) {
+          this.roi = r;
+     }
+
+     public int getRoi() {
+          return roi;
+     }
+
+     public void calcamt(int balance) {
+          int interestAmount = (int) balance * roi;
+          // System.out.println(interestAmount);
+          interestAmount /= 100;
+          int finalAmount = balance + interestAmount;
+          System.out.println(finalAmount);
+     }
+
+     public void display() {
+          System.out.print(this.accno + " ");
+          System.out.print(this.name + " ");
+          System.out.print(this.balance + " ");
+          System.out.println(this.address);
+     }
+
+     public void deposit(int amt) {
+          int res1 = this.balance + amt;
+          System.out.println(res1);
+     }
+
+     public void withdrawl(int amt) {
+          int res2 = this.balance - amt;
+          System.out.println(res2);
+     }
+}
+
+class CurrentAccount extends Accounts {
+     int draftLimit;
+
+     public CurrentAccount(int balance, int accno, String name, String address) {
+          super(balance, accno, name, address);
+     }
+
+     public void setDraftLimit(int dl) {
+          this.draftLimit = dl;
+     }
+
+     public int getDraftLimit() {
+          return draftLimit;
+     }
+
+     public void display() {
+          System.out.print(this.accno + " ");
+          System.out.print(this.name + " ");
+          System.out.print(this.balance + " ");
+          System.out.println(this.address);
+          System.out.println(this.draftLimit);
+     }
+
+     public void deposit(int amt) {
+          int res1 = this.balance + amt;
+          System.out.println(res1);
+     }
+
+     public void withdrawl(int amt) {
+          int res2 = this.balance - amt;
+          System.out.println(res2);
+     }
+}
+
+class Main {
+     public static void main(String[] args) {
+          Scanner scan = new Scanner(System.in);
+          int accno = Integer.parseInt(scan.nextLine());
+          int balance = Integer.parseInt(scan.nextLine());
+          String name = scan.nextLine();
+          String address = scan.nextLine();
+          int type = Integer.parseInt(scan.nextLine());
+
+          if (type == 1)
+          {
+               SavingsAccount s = new SavingsAccount(balance, accno, name, address);
+               s.setRoi(Integer.parseInt(scan.nextLine()));
+               s.display();
+               s.calcamt(balance);
+
+               int dw = Integer.parseInt(scan.nextLine());
+               int amt = Integer.parseInt(scan.nextLine());
+
+               if (dw == 1)
+               {
+                    s.deposit(amt);
+               }
+
+               if (dw == 2)
+               {
+                    s.withdrawl(amt);
+               }
+          }
+
+          if (type == 2)
+          {
+               CurrentAccount c = new CurrentAccount(balance, accno, name, address);
+               c.setDraftLimit(Integer.parseInt(scan.nextLine()));
+               c.display();
+
+               int dw1 = Integer.parseInt(scan.nextLine());
+               int amt1 = Integer.parseInt(scan.nextLine());
+
+               if (dw1 == 1)
+               {
+                    c.deposit(amt1);
+               }
+
+               if (dw1 == 2)
+               {
+                    c.withdrawl(amt1);
+               }
+          }
+
+          scan.close();
+     }
+}
+// Consider the Banking Scenario.
+import java.util.*;
+import java.text.*;
+import java.text.SimpleDateFormat;
+
+abstract class Account {
+     String name;
+     int number;
+     int balance;
+     Date startDate;
+
+     public Account(String name, int number, int balance, Date startDate) {
+          this.name = name;
+          this.number = number;
+          this.balance = balance;
+          this.startDate = startDate;
+     }
+
+     abstract public double calculateInterest(Date dueDate);
+}
+
+class CurrentAccount extends Account {
+     public CurrentAccount(String name, int number, int balance, Date startDate) {
+          super(name, number, balance, startDate);
+     }
+
+     public double calculateInterest(Date dueDate) {
+          double interest;
+          interest = (balance * 5 * (monthsDifference(startDate,
+                    dueDate) / 12)) / 100;
+          return interest;
+     }
+
+     public int monthsDifference(Date startDate, Date endDate) {
+          Calendar c1 = new GregorianCalendar();
+          c1.setTime(startDate);
+          Calendar c2 = new GregorianCalendar();
+          c2.setTime(endDate);
+          int ans = (c2.get(c2.YEAR) - c1.get(c1.YEAR)) * 12;
+          ans += c2.get(c2.MONTH) - c1.get(c1.MONTH);
+          return ans;
+     }
+}
+
+class SavingsAccount extends Account {
+     public SavingsAccount(String name, int number, int balance, Date startDate) {
+          super(name, number, balance, startDate);
+     }
+
+     public double calculateInterest(Date dueDate) {
+          double interest;
+          interest = (balance * 12 * (monthsDifference(startDate,
+                    dueDate) / 12)) / 100;
+          return interest;
+     }
+
+     public int monthsDifference(Date startDate, Date endDate) {
+          Calendar c1 = new GregorianCalendar();
+          c1.setTime(startDate);
+          Calendar c2 = new GregorianCalendar();
+          c2.setTime(endDate);
+          int ans = (c2.get(c2.YEAR) - c1.get(c1.YEAR)) * 12;
+          ans += c2.get(c2.MONTH) - c1.get(c1.MONTH);
+          return ans;
+     }
+}
+
+class AccountsMain {
+     public static void main(String args[]) throws ParseException
+     {
+          Scanner scan = new Scanner(System.in);
+          int type = Integer.parseInt(scan.nextLine());
+          String name = scan.nextLine();
+          int number = Integer.parseInt(scan.nextLine());
+          int balance = Integer.parseInt(scan.nextLine());
+          String dateString = scan.nextLine();
+          DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+          Date startDate = formatter.parse(dateString);
+
+          dateString = scan.nextLine();
+          Date dueDate = formatter.parse(dateString);
+
+          if (type == 1) {
+               SavingsAccount sObj = new SavingsAccount(name, number, balance,
+                         startDate);
+               System.out.println(sObj.calculateInterest(dueDate));
+          }
+
+          else {
+               CurrentAccount cObj = new CurrentAccount(name, number, balance,
+                         startDate);
+               System.out.println(cObj.calculateInterest(dueDate));
+          }
+
+          scan.close();
+     }
+}

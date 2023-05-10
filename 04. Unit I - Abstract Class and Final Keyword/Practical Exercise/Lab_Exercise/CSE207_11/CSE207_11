@@ -1,0 +1,123 @@
+import java.util.*;
+abstract class Book{
+    String title;
+    abstract void setTitle(String s);
+    String getTitle()
+    {
+        return title;
+    }
+}
+class MyBook extends Book{
+    @Override
+    void setTitle(String s)
+    {
+        this.title=s;
+    }
+}
+class Main{
+    public static void main(String[] args)
+    {
+        Scanner scan=new Scanner(System.in);
+        String title=scan.nextLine();
+        MyBook novel=new MyBook();
+        novel.setTitle(title);
+        System.out.println("The title is: "+novel.getTitle());
+        
+        scan.close();
+    }
+}
+************************
+import java.util.*;
+
+interface AdvancedArithmetic{
+    int divisorSum(int n);
+}
+
+class MyCalculator implements AdvancedArithmetic{
+    public int divisorSum(int n){
+        int sum=0;
+        for (int i=1; i<=n; i++)
+        {
+            if (n%i==0)
+            {
+                sum+=i;
+            }
+        }
+        
+        return sum;
+    }
+}
+
+class Main{
+    public static void main(String[] args)
+    {
+        MyCalculator calc=new MyCalculator();
+        System.out.print("I implemented: ");
+        ImplementedInterfaceNames(calc);
+        
+        Scanner scan=new Scanner(System.in);
+        int num=scan.nextInt();
+        System.out.println(calc.divisorSum(num));
+        
+        scan.close();
+    }
+
+    static void ImplementedInterfaceNames(Object obj){
+        Class[] theInterfaces=obj.getClass().getInterfaces();
+        for (int i=0; i<theInterfaces.length; i++)
+        {
+            String interfaceName=theInterfaces[i].getName();
+            System.out.println(interfaceName);
+        }
+    }
+}
+********************
+import java.util.*;
+
+interface Food{
+    public String getType();
+}
+
+class Pizza implements Food{
+    public String getType()
+    {
+        return "Someone ordered a Fast Food!";
+    }
+}
+
+class Cake implements Food{
+    public String getType(){
+        return "Someone ordered a Dessert!";
+    }
+}
+
+class FoodFactory{
+    public Food getFood(String order){
+        if (order.equalsIgnoreCase("Pizza"))
+        {
+            return new Pizza();
+        }
+        else if(order.equalsIgnoreCase("Cake"))
+        {
+            return new Cake();
+        }
+        
+        return null;
+    }
+}
+
+class Main{
+    public static void main(String[] args)
+    {
+        Scanner scan=new Scanner(System.in);
+        
+        FoodFactory obj=new FoodFactory();
+        
+        Food food=obj.getFood(scan.nextLine());
+        System.out.println("The factory returned "+food.getClass());
+        
+        System.out.println(food.getType());
+        
+        scan.close();
+    }
+}

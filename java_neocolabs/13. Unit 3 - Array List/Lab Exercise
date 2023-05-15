@@ -1,0 +1,229 @@
+//Using Java Library
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Q01Simple_List {
+     public static void main(String[] args) throws java.lang.Exception {
+          Scanner input = new Scanner(System.in);
+          // Inputnumber of elements
+          int number_of_elements = input.nextInt();
+          if (number_of_elements <= 0)
+               return;
+          ArrayList<Integer> numList = new ArrayList<Integer>();
+          for (int ctr = 0; ctr < number_of_elements; ctr++) {
+               // Input next element
+               int num = input.nextInt();
+               ListIterator<Integer> listIter = numList.listIterator(numList.size());
+               if (listIter.hasPrevious()) {
+                    if (listIter.previous() < num)
+                         numList.add(num);
+               } else
+                    numList.add(num);
+          }
+          System.out.println(numList);
+     }
+}
+*********************************************************************************************
+//Create a class ArrayListMain and
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+class ArrayListMain {
+     public static void main(String args[]) {
+          List<String> names = new ArrayList<>();
+          Scanner sc = new Scanner(System.in);
+          int n = Integer.parseInt(sc.nextLine());
+          for (int i = 0; i < n; i++)
+               names.add(sc.nextLine());
+
+          Iterator it = names.iterator();
+
+          while (it.hasNext()) {
+               System.out.println(it.next());
+          }
+     }
+}
+******************************************************************************************************
+//52-card deck
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Q03Complex_List {
+     public static void main(String[] args) {
+          Scanner input = new Scanner(System.in);
+          // Input number of hands:
+          int numHands = input.nextInt();
+          // Input number of cards per hand
+          int cardsPerHand = input.nextInt();
+
+          if (numHands < 1 || cardsPerHand < 1)
+               return;
+
+          String[] suit = new String[] {
+                    "Spades", "Hearts", "Diamonds", "Clubs"
+          };
+          String[] rank = new String[] {
+                    "Ace", "2", "3", "4",
+                    "5", "6", "7", "8", "9", "10",
+                    "Jack", "Queen", "King"
+          };
+
+          List<String> deck = new ArrayList<String>();
+          for (int i = 0; i < suit.length; i++)
+               for (int j = 0; j < rank.length; j++)
+                    deck.add(rank[j] + " of " + suit[i]);
+
+          Collections.shuffle(deck, new Random(0));
+
+          if (numHands * cardsPerHand > deck.size()) {
+               System.out.println("Not enough cards.");
+               return;
+          }
+
+          for (int i = 0; i < numHands; i++)
+               System.out.println(dealHand(deck, cardsPerHand));
+     }
+
+     public static List<String> dealHand(List<String> deck, int n) {
+          int deckSize = deck.size();
+          List<String> handView = deck.subList(deckSize - n, deckSize);
+          List<String> hand = new ArrayList<String>(handView);
+          handView.clear();
+          return hand;
+     }
+}
+*****************************************************************************************
+s (75 sloc) 2.36 KB
+//List remove()
+import java.util.*;
+import java.io.*;
+
+class Hall {
+     private String name;
+     private String contactNumber;
+     private double costPerDay;
+     private String ownerName;
+
+     public String getName() {
+          return name;
+     }
+
+     public void setName(String name) {
+          this.name = name;
+     }
+
+     public String getContactNumber() {
+          return contactNumber;
+     }
+
+     public void setContactNumber(String contactNumber) {
+          this.contactNumber = contactNumber;
+     }
+
+     public double getCostPerDay() {
+          return costPerDay;
+     }
+
+     public void setCostPerDay(double costPerDay) {
+          this.costPerDay = costPerDay;
+     }
+
+     public String getOwnerName() {
+          return ownerName;
+     }
+
+     public void setOwnerName(String ownerName) {
+          this.ownerName = ownerName;
+     }
+
+     public Hall() {
+          this.name = null;
+          this.contactNumber = null;
+          this.costPerDay = 0;
+          this.ownerName = null;
+     }
+
+     public Hall(String name, String contactNumber, Double costPerDay, String ownerName) {
+          this.name = name;
+          this.contactNumber = contactNumber;
+          this.costPerDay = costPerDay;
+          this.ownerName = ownerName;
+     }
+
+     public void display() {
+          System.out.printf("%-20s%-20s%-20s%-20s\n", name, contactNumber, costPerDay, ownerName);
+     }
+}
+
+class Main {
+     public static void main(String[] args) {
+          int i, n;
+          Scanner sc = new Scanner(System.in);
+          n = Integer.parseInt(sc.nextLine());
+          ArrayList<Hall> h1 = new ArrayList<>(n);
+          Hall[] h = new Hall[n];
+          for (i = 0; i < n; i++) {
+               h[i] = new Hall();
+               h[i].setName(sc.nextLine());
+               h[i].setContactNumber(sc.nextLine());
+               h[i].setCostPerDay(Double.parseDouble(sc.nextLine()));
+               h[i].setOwnerName(sc.nextLine());
+               h1.add(h[i]);
+          }
+          int index = Integer.parseInt(sc.nextLine());
+          if (h1.isEmpty()) {
+               System.out.println("The list is empty");
+          } else {
+               h1.remove(index);
+               System.out.printf("%-20s%-20s%-20s%-20s\n", "Name", "Contact Number", "CostperDay", "Owner Name");
+          }
+
+          for (i = 0; i < n - 1; i++) {
+               h1.get(i).display();
+          }
+     }
+}
+*********************************************************************************************************************************
+//contains()
+import java.io.*;
+import java.util.*;
+
+class Main {
+     public static void main(String[] args) {
+          int i, n;
+          Scanner sc = new Scanner(System.in);
+          n = Integer.parseInt(sc.nextLine());
+          ArrayList<String> hall = new ArrayList<>(n);
+          for (i = 0; i < n; i++) {
+               hall.add(sc.nextLine());
+          }
+          String search = sc.nextLine();
+          if (hall.contains(search)) {
+               System.out.println(hall.indexOf(search));
+          } else {
+               System.out.println(search + " hall is not found");
+          }
+     }
+}
+************************************************************************************************
+//ArrayList - Introduction
+import java.io.*;
+import java.util.*;
+
+class Main {
+     public static void main(String[] args) {
+          int n, i;
+          Scanner sc = new Scanner(System.in);
+          n = Integer.parseInt(sc.nextLine());
+          ArrayList<String> arrlist = new ArrayList<String>(n);
+          for (i = 0; i < n; i++) {
+               arrlist.add(sc.nextLine());
+          }
+          System.out.println(arrlist);
+     }
+}
+******************************************************************
